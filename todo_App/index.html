@@ -23,7 +23,7 @@
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
   <script>
-    new Vue({
+    let app = new Vue({
       el: '#app', // div tag에 mount
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
@@ -40,7 +40,7 @@
               title: '해변'
             },
             {
-              id: 3,
+              id: 3,i
               image: 'https://unsplash.com/photos/U4fAZiF_S2A',
               title: '휴대폰'
             },
