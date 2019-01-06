@@ -7,11 +7,11 @@
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
-    <input type="text" id="user_id" v-model="userId"> <!--v-model 태그를 통해 input태그의 value값과 data 변수 값이 동기화 됨-->
+    <input type="text" id="user_id" v-model="userId" onchange="userIdChanged(this)">  <!--Vue가 아니었다면, value 변동에 따른 값 Check하는 방식-->
     <input type="password" id="user_password" v-model="userPassword">
     <button type="button">로그인</button>
     <br />
-    아이디 : {{userId}}
+    아이디 : <span id="user_id_text"></span>
     <br />
     비밀번호 : {{userPassword}}
   </div>
@@ -28,6 +28,10 @@
         }
       }
     })
+
+    function userIdChanged(obj) {
+      document.getElementById('user_id_text').innerText = obj.value; // value 변동에 따라 user_id_text에 해당 값 지정, 번거로움, HTML과 JavaScript가 너무 끈끈하게 달라붙어 있다는 단점 존재
+    }
   </script>
 </body>
 </html>
