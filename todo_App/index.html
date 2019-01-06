@@ -8,12 +8,16 @@
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
     <ul style="list-style: none;">
-      <li v-for="item in items">
-          <!-- {{item.id}} -->
+      <!--template 태그를 통해 v-for를 한 개 이상의 태그에 적용시킬 수 있음-->
+      <template v-for="item in items">
+        <li>
           <img :src="item.image"> <!--Vue.js에서는 Tag Attribute에 변수 값을 대입시키려면 {{}}가 아닌 attribute 앞에 :을 사용-->
+        </li>
+        <li>
           <br />
           {{item.title}}
-      </li>
+        </li>
+      </template>
     </ul>
   </div>
   <!-- development version, includes helpful console warnings -->
