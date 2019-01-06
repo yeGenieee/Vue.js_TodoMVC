@@ -7,9 +7,10 @@
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
-    <input type="text" id="user_id" v-model="userId"> <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
+    <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
+    <input type="text" id="user_id" v-model="userId">
     <input type="password" id="user_password" v-model="userPassword">
-    <button type="button">로그인</button>
+    <button type="button" onclick="login()">로그인</button>
     <br />
     아이디 : {{userId}}
     <br />
@@ -28,6 +29,14 @@
         }
       }
     })
+    // 원래 HTML과 JavaScript를 이용하던 방법
+   function login(){
+     let userId = document.getElementById('user_id').value;
+     let userPassword = document.getElementById('user_password').value;
+     // 데이터 전송
+     console.log(userId);
+     console.log(userPassword);
+   }
   </script>
 </body>
 </html>
