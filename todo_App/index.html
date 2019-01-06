@@ -7,13 +7,14 @@
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
-    <input type="text" id="user_id" v-model="userId"> <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
-    <input type="password" id="user_password" v-model="userPassword">
-    <button type="button">로그인</button>
-    <br />
-    아이디 : {{userId}}
-    <br />
-    비밀번호 : {{userPassword}}
+    <ul style="list-style: none;">
+      <li v-for="item in items">
+          <!-- {{item.id}} -->
+          <img :src="item.image"> <!--Vue.js에서는 Tag Attribute에 변수 값을 대입시키려면 {{}}가 아닌 attribute 앞에 :을 사용-->
+          <br />
+          {{item.title}}
+      </li>
+    </ul>
   </div>
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
@@ -23,9 +24,29 @@
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
         return {
-            userId: '',
-            userPassword: ''
-        }
+          items : [
+            {
+              id: 1,
+              image: 'https://unsplash.com/photos/bkAAozUmlkU',
+              title: '컴퓨터'
+            },
+            {
+              id: 2,
+              image: 'https://unsplash.com/photos/1Mq4QQaVhis',
+              title: '해변'
+            },
+            {
+              id: 3,
+              image: 'https://unsplash.com/photos/U4fAZiF_S2A',
+              title: '휴대폰'
+            },
+            {
+              id: 4,
+              image: 'https://unsplash.com/photos/l6blEUPjrbo',
+              title: '눈밭'
+            }
+          ]
+        };
       }
     })
   </script>
