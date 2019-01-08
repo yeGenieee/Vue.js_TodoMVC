@@ -7,25 +7,26 @@
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
-    <input type="text" id="user_id" v-model="userId"> <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
-    <input type="password" id="user_password" v-model="userPassword">
-    <button type="button">로그인</button>
-    <br />
-    아이디 : {{userId}}
-    <br />
-    비밀번호 : {{userPassword}}
+    <!--
+      Vue.js에서 data값을 Attribute에 연결하려면, attribute 앞에 콜론을 붙이고 변수명을 적어주면 됨 (:src="image")
+      원래 정식 지시자는 v-bind:src="image" 임
+      간편해서 :을 많이쓴다. : 을 붙이면 해당 태그 안은 Javascript 영역이 되어 변수를 넣는 것 이외에도 String 연산을 할 수 있음
+    -->
+    <!--list를 출력하는 경우 :id를 두어 출력 가능-->
+    <img :id="`thumbnail_${id}`" :src="image">
   </div>
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
   <script>
-    new Vue({
+    let app = new Vue({
       el: '#app', // div tag에 mount
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
         return {
-            userId: '',
-            userPassword: ''
-        }
+          // src Attribute에 Vue.js data 값을 사용하기 위함 : data 메소드에 Attribute image를 만들고, 이를 image 태그 src 값으로 넣어줌
+          id: 1,
+          image: 'https://picsum.photos/200/200?image=353'
+        };
       }
     })
   </script>
