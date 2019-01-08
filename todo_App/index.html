@@ -4,6 +4,20 @@
   <title>Welcome to Vue</title>
   <script src="https://unpkg.com/vue"></script>
 </head>
+<style>
+  .dropdown ul{
+    display: none;
+    list-style: none;
+    margin: 0;
+    border: 1px solid black;
+    padding: 10px;
+    width: 200px;
+  }
+
+  .dropdown.on ul {
+    display: block;
+  }
+</style>
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
@@ -15,8 +29,21 @@
     <button type="button" @click="add">더하기</button>
     {{ counter }}
 
-    <!-- key눌림을 검사 vue.js에서는 keyup.enter를 통해 엔터키에만 동작하도록 실행할 수 있음 -->
+    <!-- key눌림을 검에서는 keyup.enter를 통해 엔터키에만 동작하도록 실행할 수 있음 -->
     <input type="text" @keyup.enter="keyUp">
+    <hr>
+
+    <img :id="`thumbnail_${id}`" :src="image">
+    <hr>
+
+    <button type="button" @click="btnClick">버튼</button>
+
+    <div :class="[dropdown, toggle]">
+      <ul>
+        <li><a href="#">메뉴1</a></li>
+        <li><a href="#">메뉴2</a></li>
+      </ul>
+    </div>
   </div>
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
@@ -27,10 +54,27 @@
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
         return {
-          counter: 0
+          counter: 0,
+          id: 1,
+          image: 'https://picsum.photos/200/200?image=353',
+          style: {
+            backgroud: 'red'
+          },
+          fontStyle: {
+            fontSize: '10px',
+            fontFamily: 'Helvetica'
+          },
+          dropdown: 'dropdown',
+          toggle : {
+            on: false
+          }
         };
       },
       methods: {
+        // 버튼 클릭을 통해 data속성의 toggle 내 on 값을 true/false로 바꿈
+        btnClick() {
+          this.toggle.on = ! this.toggle.on;
+        },
         // 화살표 함수가 아닌 형태로 메소드 선언하기 (화살표 함수로 구현시 this.counter가 undefined로 보임)
         add() {
           this.counter++;
