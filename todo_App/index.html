@@ -13,7 +13,12 @@
       간편해서 :을 많이쓴다. : 을 붙이면 해당 태그 안은 Javascript 영역이 되어 변수를 넣는 것 이외에도 String 연산을 할 수 있음
     -->
     <!--list를 출력하는 경우 :id를 두어 출력 가능-->
-    <img :id="`thumbnail_${id}`" :src="image">
+    <!-- <img :id="`thumbnail_${id}`" :src="image"> -->
+
+    <!--style 속성에 style 변수를 연결, 배열로 연결 가능-->
+    <div :style="[style, fontStyle]" :class="[dropdown, toggle]">
+      테스트용 DIV
+    </div>
   </div>
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
@@ -25,7 +30,20 @@
         return {
           // src Attribute에 Vue.js data 값을 사용하기 위함 : data 메소드에 Attribute image를 만들고, 이를 image 태그 src 값으로 넣어줌
           id: 1,
-          image: 'https://picsum.photos/200/200?image=353'
+          image: 'https://picsum.photos/200/200?image=353',
+          style: {
+            background: 'red'
+          }, // style 변수 (json으로 관리)
+          fontStyle: {
+            'font-size': '10px',
+            'font-family': 'Helvetica'
+          }, // fontStyle을 따로 관리
+          dropdown: {
+            dropdown: true
+          },
+          toggle: {
+            on: true
+          }
         };
       }
     })
