@@ -7,24 +7,30 @@
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
-    <input type="text" id="user_id" v-model="userId"> <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
-    <input type="password" id="user_password" v-model="userPassword">
-    <button type="button">로그인</button>
-    <br />
-    아이디 : {{userId}}
-    <br />
-    비밀번호 : {{userPassword}}
+    <!-- v-on 지시자-->
+    <!--
+      v-on 지시자의 단축 ==> @
+      ex) v-on:click="add" == @click="add"
+    -->
+    <button type="button" @click="add">더하기</button>
+    {{counter}}
   </div>
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
   <script>
-    new Vue({
+  // 함수가 json 객체 내에 있는 형태 = 메소드라고 함 => 어딘가에 속해 있는 함수
+  let app = new Vue({
       el: '#app', // div tag에 mount
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
         return {
-            userId: '',
-            userPassword: ''
+          counter: 0
+        };
+      },
+      methods: {
+        // 화살표 함수가 아닌 형태로 메소드 선언하기 (화살표 함수로 구현시 this.counter가 undefined로 보임)
+        add() {
+          this.counter++;
         }
       }
     })
