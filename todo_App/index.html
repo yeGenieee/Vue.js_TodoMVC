@@ -21,6 +21,29 @@
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
+    <!-- v-on 지시자-->
+    <!--
+      v-on 지시자의 단축 ==> @
+      ex) v-on:click="add" == @click="add"
+    -->
+    <button type="button" @click="add">더하기</button>
+    {{ counter }}
+
+    <!-- key눌림을 검에서는 keyup.enter를 통해 엔터키에만 동작하도록 실행할 수 있음 -->
+    <input type="text" @keyup.enter="keyUp">
+    <hr>
+
+    <img :id="`thumbnail_${id}`" :src="image">
+    <hr>
+
+    <button type="button" @click="btnClick">버튼</button>
+
+    <div :class="[dropdown, toggle]">
+      <ul>
+        <li><a href="#">메뉴1</a></li>
+        <li><a href="#">메뉴2</a></li>
+      </ul>
+    </div>
     <!--
       Vue.js에서 data값을 Attribute에 연결하려면, attribute 앞에 콜론을 붙이고 변수명을 적어주면 됨 (:src="image")
       원래 정식 지시자는 v-bind:src="image" 임
@@ -39,7 +62,7 @@
     </div>
     
     <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
-<!-- issue#2
+<!-- issue#2 : 기존 HTML & JavaScript를 이용하던 방식과 Vue.js를 이용하는 방식의 비교
     <input type="text" id="user_id" v-model="userId">
     <input type="password" id="user_password" v-model="userPassword">
     <button type="button" onclick="login()">로그인</button>
@@ -51,31 +74,67 @@
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
   <script>
-    let app = new Vue({
+  // 함수가 json 객체 내에 있는 형태 = 메소드라고 함 => 어딘가에 속해 있는 함수
+  let app = new Vue({
       el: '#app', // div tag에 mount
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
         return {
-          // src Attribute에 Vue.js data 값을 사용하기 위함 : data 메소드에 Attribute image를 만들고, 이를 image 태그 src 값으로 넣어줌
+          counter: 0,
           id: 1,
           image: 'https://picsum.photos/200/200?image=353',
           style: {
-            background: 'red'
-          }, // style 변수 (json으로 관리)
-          fontStyle: {
-            'font-size': '10px',
-            'font-family': 'Helvetica'
-          }, // fontStyle을 따로 관리
-          dropdown: {
-            dropdown: true
+            backgroud: 'red'
           },
-          toggle: {
+          fontStyle: {
+            fontSize: '10px',
+            fontFamily: 'Helvetica'
+          },
+          dropdown: 'dropdown',
+          toggle : {
             on: false
           }
         };
+      },
+      methods: {
+        // 버튼 클릭을 통해 data속성의 toggle 내 on 값을 true/false로 바꿈
+        btnClick() {
+          this.toggle.on = ! this.toggle.on;
+        },
+        // 화살표 함수가 아닌 형태로 메소드 선언하기 (화살표 함수로 구현시 this.counter가 undefined로 보임)
+        add() {
+          this.counter++;
+        },
+
+        // 엔터키가 눌리는 경우에 엔터키 눌림을 콘솔에 출력하는 함수
+        keyUp(ev) {
+          if (ev.keyCode !== 13) {
+            console.log("엔터키 아님");
+            return;
+          }
+          console.log("엔터키 눌림");
+        }
+// issue#3 : data binding
+//           // src Attribute에 Vue.js data 값을 사용하기 위함 : data 메소드에 Attribute image를 만들고, 이를 image 태그 src 값으로 넣어줌
+//           id: 1,
+//           image: 'https://picsum.photos/200/200?image=353',
+//           style: {
+//             background: 'red'
+//           }, // style 변수 (json으로 관리)
+//           fontStyle: {
+//             'font-size': '10px',
+//             'font-family': 'Helvetica'
+//           }, // fontStyle을 따로 관리
+//           dropdown: {
+//             dropdown: true
+//           },
+//           toggle: {
+//             on: false
+//           }
+//         };
       }
     })
-    // 원래 HTML과 JavaScript를 이용하던 방법
+    // issue#1 : 원래 HTML과 JavaScript를 이용하던 방법
    function login(){
      let userId = document.getElementById('user_id').value;
      let userPassword = document.getElementById('user_password').value;
