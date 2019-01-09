@@ -4,29 +4,75 @@
   <title>Welcome to Vue</title>
   <script src="https://unpkg.com/vue"></script>
 </head>
+<style>
+  .dropdown ul {
+    display: none;
+    list-style: none;
+    margin: 0;
+    border: 1px solid black;
+    padding: 10px;
+    width: 200px;
+  }
+
+  .dropdown.on ul {
+    display: block;
+  }
+</style>
 <body>
   <!--div tag를 만들고 mount하여 사용함-->
   <div id="app">
+    <!--
+      Vue.js에서 data값을 Attribute에 연결하려면, attribute 앞에 콜론을 붙이고 변수명을 적어주면 됨 (:src="image")
+      원래 정식 지시자는 v-bind:src="image" 임
+      간편해서 :을 많이쓴다. : 을 붙이면 해당 태그 안은 Javascript 영역이 되어 변수를 넣는 것 이외에도 String 연산을 할 수 있음
+    -->
+    <!--list를 출력하는 경우 :id를 두어 출력 가능-->
+    <!-- <img :id="`thumbnail_${id}`" :src="image"> -->
+
+    <!--style 속성에 style 변수를 연결, 배열로 연결 가능-->
+    <div :style="[style, fontStyle]" :class="[dropdown, toggle]">
+      테스트용 DIV
+      <ul>
+        <li><a href="#">메뉴 1</a></li>
+        <li><a href="#">메뉴 2</a></li>
+      </ul>
+    </div>
+    
     <!--v-model Attribute를 통해 input태그의 value값과 data 변수 값이 동기화할 수 있게 됨-->
+<!-- issue#2
     <input type="text" id="user_id" v-model="userId">
     <input type="password" id="user_password" v-model="userPassword">
     <button type="button" onclick="login()">로그인</button>
     <br />
     아이디 : {{userId}}
     <br />
-    비밀번호 : {{userPassword}}
+    비밀번호 : {{userPassword}} -->
   </div>
   <!-- development version, includes helpful console warnings -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!--vuejs cdn 주소 추가-->
   <script>
-    new Vue({
+    let app = new Vue({
       el: '#app', // div tag에 mount
       // Vue 인스턴스 내부에서 사용할 data들 정의 가능
       data() {
         return {
-            userId: '',
-            userPassword: ''
-        }
+          // src Attribute에 Vue.js data 값을 사용하기 위함 : data 메소드에 Attribute image를 만들고, 이를 image 태그 src 값으로 넣어줌
+          id: 1,
+          image: 'https://picsum.photos/200/200?image=353',
+          style: {
+            background: 'red'
+          }, // style 변수 (json으로 관리)
+          fontStyle: {
+            'font-size': '10px',
+            'font-family': 'Helvetica'
+          }, // fontStyle을 따로 관리
+          dropdown: {
+            dropdown: true
+          },
+          toggle: {
+            on: false
+          }
+        };
       }
     })
     // 원래 HTML과 JavaScript를 이용하던 방법
